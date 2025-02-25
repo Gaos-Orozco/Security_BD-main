@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de ropa</title>
+   
+</head>
+<body>
+    <header>
+        <h1>Elegancia & Estilo</h1>
+    </header>
+    <div class="container">
+        <div class="section">
+            <h2>Nuestra Colección</h2>
+            <p>Descubre la elegancia en cada prenda con nuestra colección exclusiva.</p>
+            <img src="https://www.gmarfil.com/img/cms/tienda_red.jpg" alt="Colección de ropa elegante">
+        </div>
+        <div class="section">
+            <h2>Calidad y Diseño</h2>
+            <p>Utilizamos materiales de alta calidad y diseños sofisticados para ofrecerte lo mejor.</p>
+            <img src="https://casatextil.com.co/cdn/shop/articles/Tipos-de-telas.jpg?v=1701965776" alt="Calidad y diseño en ropa">
+        </div>
+        <div class="section">
+            <h2>Visítanos</h2>
+            <p>Encuentra nuestras tiendas en las mejores ubicaciones para vivir la experiencia de la moda.</p>
+            <img src="https://www.jimarestanterias.com/wp-content/uploads/2022/06/WhatsApp-Image-2022-02-11-at-12.17.04-PM.jpeg" alt="Ubicación de la tienda">
+        </div>
+
+
+        <form method="post" action="/logout">
+            <input type="hidden" name="_csrf">
+            <button class="btn btn-primary" type="submit">Cerrar Sesión</button>
+        </form>
+        
+
+    </div>
+</body>
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        text-align: center;
+    }
+    header {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        font-size: 24px;
+    }
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+    }
+    .section {
+        margin: 40px 0;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .section img {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 10px;
+    }
+
+    form{
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+</style>
+</html>

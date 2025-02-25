@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clases - Gimnasio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Gestión de Clases de Gimnasio</h2>
+
+        <div class="card p-3 my-3">
+            <h4>Selecciona una Clase</h4>
+            <form th:action="@{/clases/seleccionar}" method="post">
+                <div class="d-grid gap-2">
+                    <button type="submit" name="nombre" value="Yoga" class="btn btn-primary">Yoga</button>
+                    <button type="submit" name="nombre" value="Pilates" class="btn btn-primary">Pilates</button>
+                    <button type="submit" name="nombre" value="Zumba" class="btn btn-primary">Zumba</button>
+                    <button type="submit" name="nombre" value="CrossFit" class="btn btn-primary">CrossFit</button>
+                    <button type="submit" name="nombre" value="Spinning" class="btn btn-primary">Spinning</button>
+                    <button type="submit" name="nombre" value="HIIT" class="btn btn-primary">HIIT</button>
+                    <button type="submit" name="nombre" value="Boxeo" class="btn btn-primary">Boxeo</button>
+                    <button type="submit" name="nombre" value="Body Pump" class="btn btn-primary">Body Pump</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="card p-3 my-3" th:if="${claseSeleccionada != null}">
+            <h4>Asignar Horario</h4>
+            <form th:action="@{/clases/agregar}" method="post">
+                <input type="hidden" name="nombre" th:value="${claseSeleccionada}">
+                <div class="mb-3">
+                    <label class="form-label">Horario</label>
+                    <input type="datetime-local" class="form-control" name="horario" required>
+                </div>
+                <button type="submit" class="btn btn-success">Confirmar Clase</button>
+            </form>
+        </div>
+
+        <h4>Clases Disponibles</h4>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Horario</th>
+                    <th>Usuarios Registrados</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="clase : ${clases}">
+                    <td th:text="${clase.id}"></td>
+                    <td th:text="${clase.nombre}"></td>
+                    <td th:text="${clase.horario}"></td>
+                    <td>
+                        <a th:href="@{/clases/{id}/usuarios(id=${clase.id})}" class="btn btn-info btn-sm">Ver Usuarios</a>
+                    </td>
+                    <td>
+                        <a th:href="@{/clases/eliminar/{id}(id=${clase.id})}" class="btn btn-danger btn-sm"
+                        onclick="return confirm('¿Estás seguro de eliminar esta clase?')">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
