@@ -20,16 +20,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr th:each="clase : ${clases}">
-        <td th:text="${clase.id}">1</td>
-        <td th:text="${clase.nombre}">Nombre de Clase</td>
-        <td th:text="${#dates.format(clase.fecha, 'dd/MM/yyyy HH:mm')}">Fecha</td>
+      <tr th:each="reserva : ${reservas}">
+        <td th:text="${reserva.id}"></td>
+        <td th:text="${reserva.usuario.nombre}"></td>
+        <td th:text="${reserva.clase.nombre}"></td>
+        <td th:text="${#dates.format(reserva.fechaReserva, 'dd/MM/yyyy HH:mm')}"></td>
         <td>
-          <a th:href="@{'/admin/clases/' + ${clase.id} + '/editar'}">Editar</a>
-          <form th:action="@{'/admin/clases/' + ${clase.id} + '/eliminar'}" method="post" style="display:inline;">
-            <button type="submit">Eliminar</button>
+          <a th:href="@{'/admin/reservas/' + ${reserva.id} + '/editar'}" class="btn btn-warning btn-sm">Editar</a>
+          <form th:action="@{'/admin/reservas/' + ${reserva.id} + '/eliminar'}" method="post" class="d-inline">
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar esta reserva?');">Eliminar</button>
           </form>
-          <a th:href="@{'/admin/clases/' + ${clase.id} + '/usuarios'}">Ver Usuarios</a>
         </td>
       </tr>
     </tbody>

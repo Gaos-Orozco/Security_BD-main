@@ -1,6 +1,7 @@
 package com.example.Security_BD.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ReservaService {
         Reserva reserva = new Reserva();
         reserva.setUsuario(usuario);
         reserva.setClase(clase);
-        reserva.setFechaReserva(LocalDate.now().atStartOfDay());
+        reserva.setFechaReserva(LocalDateTime.now());
 
         return reservaRepository.save(reserva);
     }
