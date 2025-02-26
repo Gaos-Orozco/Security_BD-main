@@ -1,44 +1,42 @@
 <!DOCTYPE html>
-<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Clases</title>
-    <link rel="stylesheet" href="/css/styles.css">
+  <meta charset="UTF-8">
+  <title>Panel de Administración - Clases</title>
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
-    <h2>Administración de Clases</h2>
-
-    
-    <form th:action="@{/clases/crear}" method="post">
-        <input type="text" name="nombre" placeholder="Nombre de la clase" required>
-        <input type="datetime-local" name="fecha" placeholder="fecha" required>
-
-        
-        <button type="submit">Crear Clase</button>
-    </form>
-
-    <h3>Clases Creadas</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Horario</th>
-                <th>Usuarios Inscritos</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-            <tr th:each="clase : ${clases}">
-                <td th:text="${clase.nombre}"></td>
-                <td th:text="${clase.horario}"></td>
-                <td>
-                    <ul>
-                        <li th:each="usuario : ${clase.usuarios}" th:text="${usuario.username}"></li>
-                    </ul>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+  <h1>Panel de Administración - Clases de Gimnasio</h1>
+  
+  <a th:href="@{/admin/clases/crear}">Crear Nueva Clase</a>
+  
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="clase : ${clases}">
+        <td th:text="${clase.id}">1</td>
+        <td th:text="${clase.nombre}">Nombre de Clase</td>
+        <td th:text="${#dates.format(clase.fecha, 'dd/MM/yyyy HH:mm')}">Fecha</td>
+        <td>
+          <a th:href="@{'/admin/clases/' + ${clase.id} + '/editar'}">Editar</a>
+          <form th:action="@{'/admin/clases/' + ${clase.id} + '/eliminar'}" method="post" style="display:inline;">
+            <button type="submit">Eliminar</button>
+          </form>
+          <a th:href="@{'/admin/clases/' + ${clase.id} + '/usuarios'}">Ver Usuarios</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div th:if="${mensaje}">
+    <p th:text="${mensaje}"></p>
+  </div>
 </body>
 </html>
