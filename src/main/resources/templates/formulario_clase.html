@@ -10,7 +10,7 @@
 
     <h2 class="text-center mb-4">Registrar Nueva Clase</h2>
 
-    <form action="/clase/guardar" method="post" class="border p-4 rounded shadow-sm">
+    <form action="/admin/clase/guardar" method="post" class="border p-4 rounded shadow-sm">
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre de la Clase</label>
             <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -23,6 +23,77 @@
 
         <button type="submit" class="btn btn-primary w-100">Guardar Clase</button>
     </form>
+    <style>
+     body {
+    background-image: url('https://images.unsplash.com/photo-1588286840104-8957b019727f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding-top: 30px;
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+}
+
+form {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 500px;
+}
+
+label {
+    font-weight: bold;
+    color: white;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-color: lightgray;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.btn-primary {
+    background-color: gray;
+    border: none;
+    color: white;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: lightgray;
+    color: black;
+    transform: scale(1.05);
+}
+
+    </style>
+    
 
 </body>
 </html>

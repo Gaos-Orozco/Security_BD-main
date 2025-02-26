@@ -2,54 +2,104 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clases Disponibles - Cliente</title>
-  <link rel="stylesheet" href="/css/cliente.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+        background-image: url('https://images.unsplash.com/photo-1597075958252-60fc09ec20c2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+    }
+    .container {
+        max-width: 800px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        position: relative;
+    }
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+    th {
+        background-color: #ff6600;
+        color: white;
+    }
+    button {
+        background-color: #ff6600;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    button:hover {
+        background-color: #e65c00;
+    }
+    .message {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    .logout-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+  </style>
 </head>
 <body>
-
-  <a href="/cliente/clases">
-    <button>Ver Clases Disponibles</button>
-  </a>
-
-  <h1>Clases Disponibles</h1>
-  
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Fecha y Hora</th>
-        <th>Acción</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:each="clase : ${clases}">
-        <td th:text="${clase.nombre}">Nombre</td>
-        <td th:text="${#temporals.format(clase.fecha, 'dd/MM/yyyy HH:mm')}">Fecha y Hora</td>
-        <td>
-          <form th:action="@{'/cliente/reservar/' + ${clase.id}}" method="post" onsubmit="return confirmarReserva(this)">
-            <input type="hidden" name="claseId" th:value="${clase.id}">
-            <button type="submit">Reservar</button>
-          </form>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <div th:if="${mensaje}">
-    <p th:text="${mensaje}" style="color: green;"></p>
+  <div class="container">
+    <form method="post" action="/logout" class="logout-btn">
+      <button type="submit">Cerrar Sesión</button>
+    </form>
+    <h1>RESERVA TUS CLASES AQUÍ</h1>
+    <a href="/cliente/clases">
+      <button class="mb-3">Ver Clases Disponibles</button>
+    </a>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha y Hora</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="clase : ${clases}">
+          <td th:text="${clase.nombre}">Nombre</td>
+          <td th:text="${#temporals.format(clase.fecha, 'dd/MM/yyyy HH:mm')}">Fecha y Hora</td>
+          <td>
+            <form th:action="@{'/cliente/reservar/' + ${clase.id}}" method="post" onsubmit="return confirmarReserva(this)">
+              <input type="hidden" name="claseId" th:value="${clase.id}">
+              <button type="submit">Reservar</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div th:if="${mensaje}" class="message text-success">
+      <p th:text="${mensaje}"></p>
+    </div>
+    <div th:if="${error}" class="message text-danger">
+      <p th:text="${error}"></p>
+    </div>
   </div>
-
-  <div th:if="${error}">
-    <p th:text="${error}" style="color: red;"></p>
-  </div>
-
   <script>
     function confirmarReserva(form) {
         let claseId = form.querySelector('input[name="claseId"]').value;
         console.log("Intentando reservar clase con ID:", claseId);
-        return true;  // Permite que el formulario se envíe
+        return true;
     }
   </script>
-
 </body>
 </html>

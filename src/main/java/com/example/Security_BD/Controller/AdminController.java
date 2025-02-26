@@ -1,6 +1,7 @@
 package com.example.Security_BD.Controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,34 +19,52 @@ import com.example.Security_BD.model.Clase;
 import com.example.Security_BD.model.Reserva;
 import com.example.Security_BD.repository.ClaseRepository;
 import com.example.Security_BD.service.ClaseService;
+import com.example.Security_BD.service.ReservaService;
 
 @Controller
-@RequestMapping("/admin/clases")
-public class AdminClaseController {
+@RequestMapping("/admin")
+public class AdminController {
 
     @Autowired
     private ClaseService claseService;
 
-    @GetMapping
+    @Autowired
+    private ReservaService reservaService;
+
+    @Autowired
+    private ClaseRepository claseRepository;
+
+    @GetMapping("/panel-reservas")
+    public String verPanelReservas(Model model) {
+    List<Clase> clases = claseService.obtenerTodas();
+    List<Reserva> reservas = reservaService.obtenerTodasLasReservas();
+
+    model.addAttribute("clases", clases);
+    model.addAttribute("reservas", reservas);
+    
+    return "panel_reservas";
+}
+
+    @GetMapping("/clases")
     public String listarClases(Model model) {
         model.addAttribute("clases", claseService.obtenerTodas());
-        return "admin"; // Vista para administradores (admin.html)
+        return "admin"; 
     }
 
-    @GetMapping("/crear")
+    @GetMapping("/clases/crear")
     public String mostrarFormularioCrear(Model model) {
         model.addAttribute("clase", new Clase());
-        return "formulario_clase"; // Formulario para crear una clase
+        return "formulario_clase";
     }
 
-    @PostMapping("/crear")
+    @PostMapping("/clases/crear")
     public String crearClase(@ModelAttribute Clase clase, RedirectAttributes redirectAttributes) {
         claseService.guardarClase(clase);
         redirectAttributes.addFlashAttribute("mensaje", "Clase creada exitosamente");
         return "redirect:/admin/clases";
     }
 
-    @GetMapping("/{id}/editar")
+    @GetMapping("/clases/{id}/editar")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
         Clase clase = claseService.obtenerPorId(id)
             .orElseThrow(() -> new IllegalArgumentException("Clase no encontrada"));
@@ -53,7 +72,7 @@ public class AdminClaseController {
         return "formulario_clase";
     }
 
-    @PostMapping("/{id}/editar")
+    @PostMapping("/clases/{id}/editar")
     public String editarClase(@PathVariable Long id, @ModelAttribute Clase clase, RedirectAttributes redirectAttributes) {
         clase.setId(id);
         claseService.guardarClase(clase);
@@ -61,31 +80,21 @@ public class AdminClaseController {
         return "redirect:/admin/clases";
     }
 
-    @PostMapping("/{id}/eliminar")
+    @PostMapping("/clases/{id}/eliminar")
     public String eliminarClase(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         claseService.eliminarClase(id);
         redirectAttributes.addFlashAttribute("mensaje", "Clase eliminada correctamente");
         return "redirect:/admin/clases";
     }
 
-    @GetMapping("/{id}/usuarios")
+    @GetMapping("/clases/{id}/usuarios")
     public String verUsuariosEnClase(@PathVariable Long id, Model model) {
         Clase clase = claseService.obtenerPorId(id)
             .orElseThrow(() -> new IllegalArgumentException("Clase no encontrada"));
         model.addAttribute("clase", clase);
-        // Se asume que la entidad Clase tiene una relación con Reserva y que Reserva contiene el Usuario
         model.addAttribute("usuarios", clase.getReservas().stream().map(Reserva::getUsuario).collect(Collectors.toList()));
         return "usuarios_en_clase";
     }
-
-
-    
-    
-    @Controller
-public class ClaseController {
-
-    @Autowired
-    private ClaseRepository claseRepository;
 
     @PostMapping("/clase/guardar")
     public String guardarClase(@RequestParam String nombre, 
@@ -96,11 +105,7 @@ public class ClaseController {
         nuevaClase.setFecha(LocalDateTime.parse(fechaHora));
 
         claseRepository.save(nuevaClase);
-        System.out.println("Clase guardada en BD: " + nuevaClase);
-
         redirectAttributes.addFlashAttribute("mensaje", "Clase registrada con éxito");
         return "redirect:/admin";
     }
-}
-
 }

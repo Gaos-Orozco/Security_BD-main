@@ -1,6 +1,5 @@
 package com.example.Security_BD.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,11 +22,14 @@ public class ReservaService {
         reserva.setUsuario(usuario);
         reserva.setClase(clase);
         reserva.setFechaReserva(LocalDateTime.now());
-
         return reservaRepository.save(reserva);
     }
 
     public List<Reserva> listarPorUsuario(Usuario usuario) {
         return reservaRepository.findByUsuario(usuario);
+    }
+
+    public List<Reserva> obtenerTodasLasReservas() {
+        return reservaRepository.findAll();
     }
 }
