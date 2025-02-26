@@ -4,49 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-</head>
-
-    <body>
-        <h1>Bienvenido A Nuestra Tienda </h1>
-        <div class="login-container">
-            <h2>Iniciar Sesión</h2>
-            <form action="/login" method="post">
-                <input type="text" name="username"  placeholder="Usuario" required  >
-                <input type="password" name="password"  placeholder="Contraseña" required  >
-                <button type="submit">Ingresar</button>
-            </form>
-        </div>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            z-index: -1; 
+        }
+
         
         h1 {
             text-align: center;
             color: black;
             margin-top: 10px;
-            font-family: 'Poppins', sans-serif;
-            font-size:40px;
+            font-size: 40px;
         }
-        body {
-            background: url('https://e1.pxfuel.com/desktop-wallpaper/997/8/desktop-wallpaper-clothing-store.jpg') no-repeat center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-        }
+
+        
         .login-container {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.8); 
             padding: 40px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             text-align: center;
             width: 350px;
-            height: 350px;
-            font-size:25px;
+            font-size: 25px;
         }
+
         input {
             width: 90%;
             padding: 15px;
@@ -54,8 +58,9 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
-            font-family: 'Poppins', sans-serif;
         }
+
+        
         button {
             background: #7e8388;
             color: white;
@@ -65,12 +70,34 @@
             cursor: pointer;
             width: 100%;
             font-size: 16px;
-            font-family: 'Poppins', sans-serif;
         }
+
+        /* Estilo del botón cuando se pasa el cursor */
         button:hover {
             background: #000000;
         }
     </style>
+</head>
+<body>
+
+   
+    <video class="video-background" autoplay muted loop>
+        <source src="https://videos.pexels.com/video-files/3195530/3195530-sd_640_360_25fps.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+    </video>
+
+    
+    <div class="content">
+        <h1>Bienvenido A BodyFitSmart</h1>
+        <div class="login-container">
+            <h2>Iniciar Sesión</h2>
+            <form action="/login" method="post">
+                <input type="text" name="username" placeholder="Usuario" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <button type="submit">Ingresar</button>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>
