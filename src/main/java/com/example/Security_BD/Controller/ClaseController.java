@@ -23,7 +23,7 @@ public class ClaseController {
     @GetMapping
     public String listarClases(Model model) {
         model.addAttribute("clases", claseService.obtenerTodas());
-        return "lista_clases";
+        return "redirect:/admin";
     }
 
     @GetMapping("/crear")
